@@ -1,0 +1,25 @@
+﻿@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (5 > 3)
+{
+	<text>Nam lon hon 3</text>
+}
+@if(4>2)
+{
+	@:Đây là text
+}
+@for(int i = 0; i < 5; i++){
+	var chuoi = $"Dòng thứ {i + 1}";
+	<div>@chuoi</div>
+}
+
+<!--Ghi chú HTML (Client side)-->
+
+@*Ghi chú trên Server side*@
+
+@{ int x = 2024;}
+<div>Kết quả tính: @(2030 - x)</div>
+<div>Biết HTML5, CSS3, BootStrap5, một ít về Javascript</div>

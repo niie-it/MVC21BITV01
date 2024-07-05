@@ -5,6 +5,22 @@ namespace DemoValodation.Controllers
 {
 	public class EmployeeController : Controller
 	{
+		public IActionResult RegisterMember()
+		{
+			return View();
+		}
+
+
+		public IActionResult CheckEmployeeNo(string EmployeeNo)
+		{
+			var existedUser = new List<string> { "admin", "hienlth", "hpt7777" };//có thể đọc từ database
+			if (existedUser.Contains(EmployeeNo))
+			{
+				return Json($"Mã {EmployeeNo} đã có");
+			}
+			return Json(true);
+		}
+
 		public IActionResult Demo()
 		{
 			return View();

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoValodation.Models
 {
@@ -6,20 +7,23 @@ namespace DemoValodation.Models
 	{
 		public int? Id { get; set; }
 
+		[Remote(action: "CheckEmployeeNo", controller: "Employee")]
 		public string EmployeeNo { get; set; }
 
-		[MinLength(5, ErrorMessage ="Tối thiểu 5 kí tự")]
+		[MinLength(5, ErrorMessage = "Tối thiểu 5 kí tự")]
 		public string FullName { get; set; }
 
 
-		[EmailAddress(ErrorMessage ="Chưa đúng định dạng email")]
+		[EmailAddress(ErrorMessage = "Chưa đúng định dạng email")]
 		public string Email { get; set; }
 
 
-		[Url(ErrorMessage ="Chưa đúng định dạng url")]
+		[Url(ErrorMessage = "Chưa đúng định dạng url")]
 		public string Website { get; set; }
 
+
 		[DataType(DataType.Date)]
+		[BirthDateCheck]
 		public DateTime BirthDate { get; set; }
 
 		public string Gender { get; set; }
@@ -27,7 +31,7 @@ namespace DemoValodation.Models
 		[Range(0, double.MaxValue)]
 		public double Salary { get; set; }
 
-		public string Address { get; set; }
+		public string? Address { get; set; }
 
 		[RegularExpression(@"0[98753]\d{8}")]
 		public string Phone { get; set; }
@@ -38,11 +42,11 @@ namespace DemoValodation.Models
 		public string? CreditCard { get; set; }
 
 		[DataType(DataType.Password)]
-		[MinLength(6, ErrorMessage ="Tối thiểu 6 kí tự")]
+		[MinLength(6, ErrorMessage = "Tối thiểu 6 kí tự")]
 		public string Password { get; set; }
 
 		[MaxLength(255)]
 		[DataType(DataType.MultilineText)]
-		public string Description { get; set; }
+		public string? Description { get; set; }
 	}
 }

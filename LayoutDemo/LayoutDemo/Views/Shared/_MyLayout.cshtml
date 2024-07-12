@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<!--style area-->
+	<link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
+	<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<style>
+		#myheader{height: 100px; background-color:antiquewhite;}
+		#myfooter{text-align:center; color: blue; margin: 5px; border: 1px dotted green;}
+		#left_menu{min-height:400px; background-color: beige;}
+	</style>
+	<!--/style area-->
+	@RenderSection("Styles", required: false)
+</head>
+<body>
+	<div class="container">
+		<div id="myheader">#HEADER</div>
+		<div class="row m-0">
+			<aside id="left_menu" class="col-3">
+				#MENU
+			</aside>
+			<div class="col-9">
+				@RenderBody()
+			</div>
+		</div>
+		<div id="myfooter">&copy; Copyright by me 2024</div>
+	</div>
+	<!--script area-->
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	@RenderSection("Scripts", required: false)
+	<!--/script area-->
+</body>
+</html>

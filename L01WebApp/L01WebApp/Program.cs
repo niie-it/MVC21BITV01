@@ -1,3 +1,4 @@
+using L01WebApp.Entities;
 using L01WebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ChuoiKetNoi")));
+builder.Services.AddDbContext<EfcoreDbfirstQlbhContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ManageProduct")));
 
 var app = builder.Build();
 

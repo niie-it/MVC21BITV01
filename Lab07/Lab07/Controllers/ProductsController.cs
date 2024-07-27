@@ -6,51 +6,83 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lab07.Controllers
 {
-	public class ProductsController : Controller
-	{
-		private readonly MvcNiieLabContext _context;
+    public class ProductsController : Controller
+    {
+        private readonly MvcNiieLabContext _context;
 
-		public ProductsController(MvcNiieLabContext context)
-		{
-			_context = context;
-		}
+        public ProductsController(MvcNiieLabContext context)
+        {
+            _context = context;
+        }
 
-		public IActionResult Index()
-		{
-			var data = _context.Products.Include(p => p.Category).Include(sp => sp.Supplier);
-			return View(data);
-		}
+        public IActionResult Index()
+        {
+            var data = _context.Products.Include(p => p.Category).Include(sp => sp.Supplier);
+            return View(data);
+        }
 
-		#region Create Product
-		[HttpGet]
-		public IActionResult Create()
-		{
-			ViewBag.CategoryId = new SelectList(_context.Categories.ToList(), "Id", "NameVN");
-			ViewBag.SupplierId = new SelectList(_context.Suppliers.ToList(), "Id", "Name");
+        #region Create Product
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.CategoryId = new SelectList(_context.Categories.ToList(), "Id", "NameVN");
+            ViewBag.SupplierId = new SelectList(_context.Suppliers.ToList(), "Id", "Name");
 
-			return View();
-		}
+            return View();
+        }
 
-		[HttpPost]
-		public IActionResult Create(Product model)
-		{
-			return View();
-		}
-		#endregion
+        [HttpPost]
+        public IActionResult Create(Product model)
+        {
+            return View();
+        }
+        #endregion
 
-		[HttpGet("/Products/Filters/{mancc}")]
-		public IActionResult GetProductBySuplliers(string mancc)
-		{
-			var data = _context.Products
-				.Include(p => p.Supplier)
-				.Include(p => p.Category)
-				.Where(p => p.SupplierId == mancc)
-				.Select(p => new ProductBySupplier
-				{
-					ProductId = p.Id, ProductName = p.Name, Price = p.UnitPrice,
-					Category = p.Category.Name, Supplier = p.Supplier.Name
-				}).ToList();
-			return View(data);
-		}
-	}
+        [HttpGet("/Products/Filters/{mancc}")]
+        public IActionResult GetProductBySuplliers(string mancc)
+        {
+            var data = _context.Products
+                .Include(p => p.Supplier)
+                .Include(p => p.Category)
+                .Where(p => p.SupplierId == mancc)
+                .Select(p => new ProductBySupplier
+                {
+                    ProductId = p.Id,
+                    ProductName = p.Name,
+                    Price = p.UnitPrice,
+                    Category = p.Category.Name,
+                    Supplier = p.Supplier.Name
+                }).ToList();
+            return View(data);
+        }
+
+        [HttpGet("/Statistics/ByCategory")]
+        public IActionResult StatisticsByCategory()
+        {
+            var data = _context.Products
+                .GroupBy(p => p.Category.Name)
+                .Select(g => new CategoryStatistics
+                {
+                    Category = g.Key,
+                    NumOfProduct = g.Count()
+                });
+            return Json(data);
+        }
+
+        [HttpGet("/Statistics/BySupllierCategory")]
+        public IActionResult StatisticsBySupplierCategory()
+        {
+            var data = _context.Products
+                .GroupBy(p => new {
+                    Supplier= p.Supplier.Name,
+                    Category= p.Category.Name
+                })
+                .Select(g => new SupplierCategoryStatistics
+                {
+                    Category = g.Key.Category, Supplier = g.Key.Supplier,
+                    NumOfProduct = g.Count()
+                });
+            return Json(data);
+        }
+    }
 }

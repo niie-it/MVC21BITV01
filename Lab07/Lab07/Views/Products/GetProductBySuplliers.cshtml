@@ -1,0 +1,18 @@
+﻿@model List<ProductBySupplier>
+@{
+    ViewData["Title"] = "GetProductBySuplliers";
+}
+
+<h1>Product By Suplliers</h1>
+<table class="table table-bordered table-hover">
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.ProductId</td>
+            <td>@item.ProductName</td>
+            <td>@item.Price</td>
+            <td>@item.Category</td>
+            <td>@item.Supplier</td>
+        </tr>
+    }
+</table>

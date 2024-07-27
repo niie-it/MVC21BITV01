@@ -2,5 +2,5 @@
 
 ## Demo trên lớp
 
-* Day 13 - 26/07/2024
-	- Lab 07 (tt)
+* Day 14 - 27/07/2024
+* LAB08 - CAR DEALER

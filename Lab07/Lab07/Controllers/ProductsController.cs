@@ -25,10 +25,10 @@ namespace Lab07.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(_context.Categories.ToList(), "Id", "NameVN");
-            ViewBag.SupplierId = new SelectList(_context.Suppliers.ToList(), "Id", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "NameVN");
+            ViewBag.Suppliers = new SelectList(_context.Suppliers.ToList(), "Id", "Name");
 
-            return View();
+            return View(new Product());
         }
 
         [HttpPost]
